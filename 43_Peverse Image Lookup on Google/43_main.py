@@ -1,0 +1,23 @@
+import pysftp as sftp
+import urllib
+import time
+import bs4 as bs
+from urllib.request import urlopen
+from http import cookiejar
+
+# cj = cookiejar
+# opener = urllib.request.build_opener(urllib.request.)
+image_path = 'https://images-na.ssl-images-amazon.com/images/G/01/aplusautomation/vendorimages/65fa961e-8f22-4fe6-a420-3c3c26dd2953.jpg._CB289161999__SL300__.jpg'
+google_url = 'https://www.google.com.ua/search?rlz=1C1CHBF_enUA724UA724&espv=2&site=imghp&tbm=isch&q=' + image_path
+# https://www.google.com/search?hl=uk&biw=1366&bih=638&site=imghp&tbm=isch&q=http://minionomaniya.ru/wp-content/uploads/2016/01/%D0%9A%D0%B5%D0%B2%D0%B8%D0%BD.jpg
+# C:\Users\Pavlo\Desktop\Different\John.jpg
+# https://www.google.com.ua/search?tbs=sbi:AMhZZiuACD7mrprx7KVt7-uK7a0MhswNIvhBP8En5QZwh1tv90p4bnQLTKxWIF331b3a2DLq51IywH0dHg-B4qqNvJ6707vYEfHX0_1JoDEyQS3ehF41g7w3xCNqbTc_1MKI7ceUEWPUGIKOdZdkP-2_1UHigPSJuJjII9AXF8GfB0l5Uy-3jO0_1dON_1Tq8c7O3yoFDFZvf_1H0RfnAT6PIgXTFpenY5Phhm5gDFBn74Q5ng836erfsKoHBX720Zj0_1qMuEi8-Wxz-GuVcy0gT4nbr3ATIDqBxcInsZTWWRdKIgPq2WXJNk7GRtjW2PxwKnaOsorDgxclUelAY5v5kFT-Zdq_17r2yDvB3JfggotQQcjzk6UFYGMLyI-2aTSHQoGlgcZRD56LEySFnkoYkOz9MJAOKUOIInsE9p2XHPnpQPZkwBkZS4dmJ0PzyiLE5c3IpG9Pc9gA4g2Q-Qx8hQcXt0UY54bYQoAiyB5dWgha2r9tXR6nFI_1DobuUhcwQvQcWZmIYAR8uYjnqeGih451ZAL27lpZ5L07VjDsq1R3OIL-wQq_1y7i_14vf739lXSBkejCMrp_1rmRHsiJuPYQL9NhCrf4uyMcgKLUM7WiQXRU71Vvhni6-WfkHLk03CHOvDomje6WbHQmI30S-Gv0gCDeOqRMbBfZa89NluVkyhPknUt1mI4V2RNzcpk4PGyxI03n9J5hIYAXaV9pXT1h5ghSedlyqnUbQb-4zbctyUgXH5bylnvtPlZdo8uTgKBTvxPYOLvbZLqFX9ejw4U4WQ9R7rCCXPwiMQIVoo-WjR9QVxPBlEblr4fTrulV8NFyZp9dj8r9BfswPTBnbiezw3X_1zPTUD_1XH5sn6Ve6y_1bGbJdEamfbKImP_1XW2kZfT-B8zhTiIOmSwwtAfwHqWn9gHhJq3DAc-w9uty1bs-HW63iAQQIyIfckMzcXy6iYmUy8ZBdxCWh57l3FJY11MBolwC6_14NcNVZn80lR5V9jjgZSt5knqwVBwpuvfUQtKgqCenhCx79myUsc4KsqkrY3wFR_1pPDlDSXv2ik-L4fpCLbX_14KY5LVmjjAWa_1OGzubpJRvSZqDiyygT9ozox1lsDDRNBVJbVv3URB1tQa6I1ckJdmkKUdtlPj1IW7fj1UsC9CsiOQtvgNFOIFABPj1VWw6Qk-9NVEoiNz7uHhTTIQ8Qg30stD9nIYh_1ZmpiBB8VZshNp8hIMUH3HeexmcvVuk6Ri4MPnj_1EoqUPUB17H21kiczGasXo4e8rjebeh83kqwEStomORTMAsgGsHzBsnDxCIG3ywyGi-EQSwJ2k1Hjsfx2vIkfsTNSAVievUjl5jJ7JldnZmJKAc6G2jDANXxdAb8SQw32T-SmKOJBTc6NT6vsIW5kEvB03aibnDfcZZFLuh55uEEitowCWDSM5f03VtBbbmWEoITpT3X3GflTAdyFVzVCieAJz_1oYt55k65vd-nMofpK4kYjJY38fTIx81MF5kNYKWw8uqmJ3NTkPuau-fMQR6xr6Yayqypl3lmPijQrmfVSNqmQuEMwubt5hsaOrlDZBnY1-dj_1a_1edn9k2sv4K3M_1ziId6cTev0cbkxrmCAetygLGSId_1WE5ufBCTsQn7WNpVHH-QFgtg2QpwDyVdrcGR8R3cnxiOAGnJBB2nzVxoVURJa-FoOS_1Ia1EkTCiajYtSjaM7IDLYAvmddhuwq_1n-b95nUW4-qOxevFkPDp4c0q0WYw7yvLOMXPRmBaFu7tINtHsA&rlz=1C1CHBF_enUA724UA724&espv=2&site=imghp&sa=X&ved=0ahUKEwjy0ZTt7fPRAhUsDJoKHXg3CykQ9Q8IFigA
+
+req = urllib.request.Request(google_url, headers={'User-Agent': 'Chrome'})
+html = urllib.request.urlopen(req).read()
+
+# print(html)
+soup = bs.BeautifulSoup(html, 'lxml')
+# div = soup.find('div', attrs={'id': '_vhb'})
+# print(div)
+print(soup.prettify())
